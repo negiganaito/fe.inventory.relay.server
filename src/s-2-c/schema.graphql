@@ -1,6 +1,7 @@
 type Query {
   user: User
   categories: [Category]
+  brands: [Brand]
 }
 
 type User {
@@ -21,8 +22,14 @@ type Category {
   parentId: String
 }
 
+type Brand {
+  id: String!
+  name: String!
+}
+
 type Mutation {
   supplies_create_category(input: SuppliesCreateCategoryInput!): SuppliesCreateCategoryPayload
+  supplies_create_brand(input: SuppliesCreateBrandInput!): SuppliesCreateBrandPayload
 }
 
 type SuppliesCreateCategoryPayload {
@@ -31,6 +38,16 @@ type SuppliesCreateCategoryPayload {
 }
 
 input SuppliesCreateCategoryInput {
+  name: String!
+  clientMutationId: String
+}
+
+type SuppliesCreateBrandPayload {
+  brands: [Category]
+  clientMutationId: String
+}
+
+input SuppliesCreateBrandInput {
   name: String!
   clientMutationId: String
 }

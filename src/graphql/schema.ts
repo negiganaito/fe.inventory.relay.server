@@ -37,3 +37,15 @@ export const CategoryType = new GraphQLObjectType({
     },
   },
 });
+
+export const BrandType = new GraphQLObjectType({
+  name: 'Brand',
+  fields: {
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  },
+});
