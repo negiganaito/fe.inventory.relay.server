@@ -1,0 +1,36 @@
+type Query {
+  user: User
+  categories: [Category]
+}
+
+type User {
+  userProfile_renderer: UserProfileRenderer
+}
+
+type UserProfileRenderer {
+  age: Int
+  name: String!
+  js(module: String!, id: String): JSDependency!
+}
+
+scalar JSDependency
+
+type Category {
+  id: String!
+  name: String!
+  parentId: String
+}
+
+type Mutation {
+  supplies_create_category(input: SuppliesCreateCategoryInput!): SuppliesCreateCategoryPayload
+}
+
+type SuppliesCreateCategoryPayload {
+  categories: [Category]
+  clientMutationId: String
+}
+
+input SuppliesCreateCategoryInput {
+  name: String!
+  clientMutationId: String
+}
