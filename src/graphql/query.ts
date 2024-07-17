@@ -1,10 +1,11 @@
 import { GraphQLObjectType, GraphQLList } from 'graphql';
-import { CategoryType, UserType, BrandType } from './schema.js';
+import { CategoryType, UserType, BrandType, nodeField } from './schema.js';
 import { FakeData } from './fake-data.js';
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
+    node: nodeField,
     user: {
       type: UserType,
     },
@@ -25,8 +26,16 @@ const rootValue = {
       age: 27,
     },
   }),
-  categories: () => FakeData.categoriesMockList,
-  brands: () => FakeData.brandsMockList,
+  categories: () =>
+    FakeData.categoriesMockList.map((category) => ({
+      ...category,
+      __typename: 'Category',
+    })),
+  brands: () =>
+    FakeData.brandsMockList.map((brand) => ({
+      ...brand,
+      __typename: 'Brand',
+    })),
 };
 
 export { QueryType, rootValue };
