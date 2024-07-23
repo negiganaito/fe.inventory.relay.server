@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNonNull } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNonNull, GraphQLList } from 'graphql';
 import { JSDependencyField } from './render-on-fetch/js-dependency.js';
 import { fromGlobalId, globalIdField, nodeDefinitions } from 'graphql-relay';
 
@@ -99,3 +99,24 @@ export const BrandType = new GraphQLObjectType({
   },
   interfaces: [nodeInterface],
 });
+
+// ============================================================================
+export const CategoryListRendererType = new GraphQLObjectType({
+  name: 'CategoryListRenderer',
+  fields: {
+    categories: {
+      type: new GraphQLList(CategoryType),
+    },
+    js: JSDependencyField,
+  },
+});
+
+export const CreateSuppliesDialogType = new GraphQLObjectType({
+  name: 'CreateSuppliesDialog',
+  fields: {
+    categoryList_renderer: {
+      type: CategoryListRendererType,
+    },
+  },
+});
+// ============================================================================

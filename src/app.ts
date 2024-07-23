@@ -5,8 +5,6 @@ import { QueryType, rootValue } from './graphql/query.js';
 import { Mutation } from './graphql/mutation/index.js';
 import { dataDrivenDependencies } from './graphql/render-on-fetch/js-dependency.js';
 
-import url from 'url';
-
 export const schema = new GraphQLSchema({
   query: QueryType,
   mutation: Mutation,
@@ -20,15 +18,13 @@ let queryMap;
 
 const fetchQueryMap = async () => {
   try {
-    const response = await fetch(
-      process.env.NODE_ENV === 'development'
-        ? url.pathToFileURL('../../s-2-c/queryMap.json')
-        : 'https://raw.githubusercontent.com/negiganaito/s-2-c/main/queryMap.json',
-    );
+    const response = await fetch('https://raw.githubusercontent.com/negiganaito/s-2-c/main/queryMap.json');
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
     queryMap = await response.json();
+
+    console.log({ queryMap });
   } catch (error) {
     console.error('Failed to fetch query map:', error);
   }

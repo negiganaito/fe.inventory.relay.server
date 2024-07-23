@@ -1,31 +1,29 @@
 import { GraphQLObjectType, GraphQLList } from 'graphql';
-import { CategoryType, UserType, BrandType, nodeField } from './schema.js';
+import { CategoryType, UserType, BrandType, nodeField, CreateSuppliesDialogType } from './schema.js';
 import { FakeData } from './fake-data.js';
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
     node: nodeField,
-    user: {
-      type: UserType,
-    },
     categories: {
       type: new GraphQLList(CategoryType),
     },
     brands: {
       type: new GraphQLList(BrandType),
     },
+    // below this is 3D
+    user: {
+      type: UserType,
+    },
+    createSuppliesDialog: {
+      type: CreateSuppliesDialogType,
+    },
   },
 });
 
 // The rootValue provides a resolver function for each API endpoint
 const rootValue = {
-  user: () => ({
-    userProfile_renderer: {
-      name: 'Lê Xuân Tiến',
-      age: 27,
-    },
-  }),
   categories: () =>
     FakeData.categoriesMockList.map((category) => ({
       ...category,
@@ -36,6 +34,30 @@ const rootValue = {
       ...brand,
       __typename: 'Brand',
     })),
+
+  // below this is 3D
+  user: () => ({
+    userProfile_renderer: {
+      name: 'Lê Xuân Tiến',
+      age: 27,
+    },
+  }),
+
+  createSuppliesDialog: () => ({
+    categoryList_renderer: {
+      categories: () =>
+        FakeData.categoriesMockList.map((category) => ({
+          ...category,
+          __typename: 'Category',
+        })),
+    },
+  }),
+
+  // createSuppliesDialog: () =>
+  //   FakeData.categoriesMockList.map((category) => ({
+  //     ...category,
+  //     __typename: 'Experimental_Category',
+  //   })),
 };
 
 export { QueryType, rootValue };
