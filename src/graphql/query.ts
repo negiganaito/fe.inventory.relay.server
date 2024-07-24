@@ -45,6 +45,8 @@ const rootValue = {
 
   createSuppliesDialog: () => ({
     categoryList_renderer: {
+      id: 'uniqueIdForCategoryListRenderer', // Ensure this id is unique
+      __typename: 'CategoryListRenderer',
       categories: () =>
         FakeData.categoriesMockList.map((category) => ({
           ...category,

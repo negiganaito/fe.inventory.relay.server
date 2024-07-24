@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNonNull, GraphQLList } from 'graphql';
 import { JSDependencyField } from './render-on-fetch/js-dependency.js';
 import { fromGlobalId, globalIdField, nodeDefinitions } from 'graphql-relay';
+import { FakeData } from './fake-data.js';
 
 // ====================================================
 
@@ -33,27 +34,49 @@ const getCategory = (_id) => {};
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getBrand = (_id) => {};
 
+const getCategoryListRenderer = (id: any) => {
+  return {
+    id,
+    __typename: 'CategoryListRenderer',
+    categories: () =>
+      FakeData.categoriesMockList.map((category) => ({
+        ...category,
+
+        __typename: 'Category',
+      })),
+  };
+};
+
 export const { nodeField, nodeInterface } = nodeDefinitions(
   (globalId: string) => {
     const { type, id } = fromGlobalId(globalId);
+
+    console.log({ type, id });
+
     switch (type) {
       case 'Category':
         return getCategory(id);
       case 'Brands':
         return getBrand(id);
+      case 'CategoryListRenderer':
+        return getCategoryListRenderer(id); // Provide actual fetch logic for CategoryListRenderer
     }
   },
   (obj): any => {
-    switch (obj.__typename) {
-      case 'User':
-        return UserType;
-      case 'Category':
-        return CategoryType;
-      case 'Brand':
-        return BrandType;
-      default:
-        return null;
-    }
+    // switch (obj.__typename) {
+    //   case 'User':
+    //     return UserType;
+    //   case 'Category':
+    //     return CategoryType;
+    //   case 'Brand':
+    //     return BrandType;
+    //   case 'CategoryListRenderer':
+    //     return CategoryListRendererType;
+    //   default:
+    //     return null;
+    // }
+
+    return obj.__typename;
   },
 );
 
@@ -87,6 +110,7 @@ export const CategoryType = new GraphQLObjectType({
     },
   },
   interfaces: [nodeInterface],
+  isTypeOf: (obj) => obj.__typename === 'Category',
 });
 
 export const BrandType = new GraphQLObjectType({
@@ -98,17 +122,21 @@ export const BrandType = new GraphQLObjectType({
     },
   },
   interfaces: [nodeInterface],
+  isTypeOf: (obj) => obj.__typename === 'Brand',
 });
 
 // ============================================================================
 export const CategoryListRendererType = new GraphQLObjectType({
   name: 'CategoryListRenderer',
   fields: {
+    id: globalIdField('CategoryListRenderer'),
     categories: {
       type: new GraphQLList(CategoryType),
     },
     js: JSDependencyField,
   },
+  interfaces: [nodeInterface],
+  isTypeOf: (obj) => obj.__typename === 'CategoryListRenderer',
 });
 
 export const CreateSuppliesDialogType = new GraphQLObjectType({
