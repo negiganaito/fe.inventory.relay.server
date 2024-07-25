@@ -57,7 +57,7 @@ const rootValue = {
     brandList_renderer: {
       id: 'uniqueIdForBrandListRenderer', // Ensure this id is unique
       __typename: 'BrandListRenderer',
-      categories: () =>
+      brands: () =>
         FakeData.brandsMockList.map((brand) => ({
           ...brand,
           __typename: 'Brand',

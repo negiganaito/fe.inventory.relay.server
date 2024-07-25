@@ -5,29 +5,6 @@ import { FakeData } from './fake-data.js';
 
 // ====================================================
 
-// ========================= for user
-
-// const {nodeInterface, nodeField} = nodeDefinitions(
-//   (string globalId ) => {
-//     const {type, id}: {id: string, type: string} = fromGlobalId(globalId);
-
-//     if (type === 'Todo') {
-//       return (getTodoOrThrow(id));
-//     } else if (type === 'User') {
-//       return (getUserOrThrow(id));
-//     }
-//     return null;
-//   },
-//   (GraphQLObjectType obj = {}) => {
-//     if (obj instanceof Todo) {
-//       return GraphQLTodo;
-//     } else if (obj instanceof User) {
-//       return GraphQLUser;
-//     }
-//     return null;
-//   },
-// );
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getCategory = (_id) => {};
 
@@ -51,7 +28,7 @@ const getBrandListRenderer = (id: any) => {
   return {
     id,
     __typename: 'BrandListRenderer',
-    categories: () =>
+    brands: () =>
       FakeData.brandsMockList.map((category) => ({
         ...category,
 
@@ -145,7 +122,7 @@ export const BrandListRendererType = new GraphQLObjectType({
   name: 'BrandListRenderer',
   fields: {
     id: globalIdField('BrandListRenderer'),
-    categories: {
+    brands: {
       type: new GraphQLList(BrandType),
     },
     js: JSDependencyField,
