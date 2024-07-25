@@ -47,8 +47,8 @@ devDependencies:
     specifier: ^16.9.0
     version: 16.9.0
   graphql-http:
-    specifier: 1.22.0
-    version: 1.22.0(graphql@16.9.0)
+    specifier: 1.22.1
+    version: 1.22.1(graphql@16.9.0)
   graphql-relay:
     specifier: 0.10.2
     version: 0.10.2(graphql@16.9.0)
@@ -3060,8 +3060,8 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /graphql-http@1.22.0(graphql@16.9.0):
-    resolution: {integrity: sha512-9RBUlGJWBFqz9LwfpmAbjJL/8j/HCNkZwPBU5+Bfmwez+1Ay43DocMNQYpIWsWqH0Ftv6PTNAh2aRnnMCBJgLw==}
+  /graphql-http@1.22.1(graphql@16.9.0):
+    resolution: {integrity: sha512-4Jor+LRbA7SfSaw7dfDUs2UBzvWg3cKrykfHRgKsOIvQaLuf+QOcG2t3Mx5N9GzSNJcuqMqJWz0ta5+BryEmXg==}
     engines: {node: '>=12'}
     peerDependencies:
       graphql: '>=0.11 <=16'

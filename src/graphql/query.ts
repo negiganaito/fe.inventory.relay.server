@@ -53,6 +53,16 @@ const rootValue = {
           __typename: 'Category',
         })),
     },
+
+    brandList_renderer: {
+      id: 'uniqueIdForBrandListRenderer', // Ensure this id is unique
+      __typename: 'BrandListRenderer',
+      categories: () =>
+        FakeData.brandsMockList.map((brand) => ({
+          ...brand,
+          __typename: 'Brand',
+        })),
+    },
   }),
 
   // createSuppliesDialog: () =>
